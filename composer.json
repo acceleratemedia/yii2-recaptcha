@@ -3,7 +3,7 @@
     "description": "For using Recaptcha 2 on Yii2 applications",
     "type": "yii2-extension",
     "require": {
-        "yiisoft/yii2": "^2.0",
+        "yiisoft/yii2": "^2.0"
     },
     "authors": [
         {
