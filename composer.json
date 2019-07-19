@@ -1,0 +1,25 @@
+{
+    "name": "brianvb/yii2-recaptcha",
+    "description": "For using Recaptcha 2 on Yii2 applications",
+    "type": "yii2-extension",
+    "require": {
+        "yiisoft/yii2": "^2.0",
+    },
+    "authors": [
+        {
+            "name": "BrianVB",
+            "email": "vanburen.brian@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "bvb\\recaptcha": "src"
+        }
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        }
+    ]
+}
