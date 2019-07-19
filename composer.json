@@ -13,7 +13,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "bvb\\recaptcha": "src"
+            "bvb\\recaptcha\\": "src"
         }
     },
     "repositories": [
