@@ -4,6 +4,7 @@ namespace bvb\recaptcha;
 
 use Yii;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Inflector;
 use yii\helpers\Html;
 use yii\web\View;
 use yii\widgets\InputWidget;
@@ -34,7 +35,7 @@ class Recaptcha2HiddenResponseInputWithSubmit extends InputWidget
         $buttonOptions['class'] = (!isset($buttonOptions['class'])) ? 'g-recaptcha' : $buttonOptions['class'].' g-recaptcha';
         $buttonOptions['data-sitekey'] = Yii::$app->params['recaptcha']['siteKey'];
         $buttonOptions['id'] = (!isset($buttonOptions['id'])) ? 'recaptcha-submit-'.uniqid() : $buttonOptions['id'];
-        $buttonOptions['data-callback'] = 'onRecaptchaFormSubmit';
+        $buttonOptions['data-callback'] = $this->getCallbackFunctionName();
 
         $this->registerJs($buttonOptions['id']);
         $content= ArrayHelper::remove($buttonOptions, 'content');
@@ -55,14 +56,25 @@ class Recaptcha2HiddenResponseInputWithSubmit extends InputWidget
         $this->getView()->registerJsFile('https://www.google.com/recaptcha/api.js');
 
         // --- Create our callback to submit the form the button is rendered in
-        $hiddenInputId = Html::getInputId($this->model, $this->attribute);
+        $responseInputId = $this->options['id'];
+        $callbackFunctionName = $this->getCallbackFunctionName();
         $js = <<<JAVASCRIPT
-function onRecaptchaFormSubmit(response){
-    $("#{$hiddenInputId}").val(response);
+function {$callbackFunctionName}(response){
+    $("#{$responseInputId}").val(response);
     $("#{$buttonId}").closest("form").submit();
 }
 JAVASCRIPT;
 
         $this->getView()->registerJs($js, View::POS_END);
+    }
+
+    /**
+     * Setup a callback function for the recaptcha widget based on the name of
+     * the button being pressed so it will be unique among instances on the page
+     * @return string
+     */
+    private function getCallbackFunctionName()
+    {
+        return 'populate'.Inflector::camelize($this->options['id']).'AndSubmit';
     }
 }
