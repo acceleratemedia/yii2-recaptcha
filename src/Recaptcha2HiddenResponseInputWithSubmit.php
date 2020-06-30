@@ -37,7 +37,7 @@ class Recaptcha2HiddenResponseInputWithSubmit extends InputWidget
         $buttonOptions['id'] = (!isset($buttonOptions['id'])) ? 'recaptcha-submit-'.uniqid() : $buttonOptions['id'];
         $buttonOptions['data-callback'] = $this->getCallbackFunctionName();
 
-        $this->registerJs($buttonOptions['id']);
+        $this->registerJavascript($buttonOptions['id']);
         $content= ArrayHelper::remove($buttonOptions, 'content');
         $buttonHtml = Html::button($content, $buttonOptions);
 
@@ -50,7 +50,7 @@ class Recaptcha2HiddenResponseInputWithSubmit extends InputWidget
      * @param string $id
      * @return null
      */
-    private function registerJs($buttonId)
+    private function registerJavascript($buttonId)
     {
         // --- Load the JS file from Google
         $this->getView()->registerJsFile('https://www.google.com/recaptcha/api.js');
