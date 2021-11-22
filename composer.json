@@ -1,5 +1,5 @@
 {
-    "name": "brianvb/yii2-recaptcha",
+    "name": "acceleratemedia/yii2-recaptcha",
     "description": "For using Recaptcha 2 on Yii2 applications",
     "type": "yii2-extension",
     "require": {
